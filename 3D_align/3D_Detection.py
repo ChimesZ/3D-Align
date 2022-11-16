@@ -18,7 +18,7 @@ def pcd_init(path,min_points):
     max_label = labels.max()
     colors = plt.get_cmap("tab20")(labels / (max_label 
     if max_label > 0 else 1))
-    colors[labels < 0] = 1
+    colors[labels < 0] = 0
     pcd.colors = o3.utility.Vector3dVector(colors[:, :3])
     # o3.visualization.draw_geometries([pcd])
     return pcd,labels
@@ -43,10 +43,10 @@ def stat(path):
         cell['label'] = i
         cell['center'] = np.mean(loc,axis=0)
         cells.append(cell)
-    return cells
+    return np.asarray(cells)
 if __name__ == '__main__':
     path1 = "/Users/apple/YiLab/Resoursces/3D Align/sample/MASK_DG green 1st recall_A01_G001_0001.oir - C=0.txt"
     path2 = "/Users/apple/YiLab/Resoursces/3D Align/sample/MASK_DG green 2nd recall_A01_G001_0001.oir - C=0.txt"
-    data, _ = pcd_init(path1,50)
-    o3.visualization.draw_geometries([data])
+    data = stat(path2)
+    np.save('/Users/apple/YiLab/Resoursces/3D Align/Data/2nd recall.npy',data)
     
