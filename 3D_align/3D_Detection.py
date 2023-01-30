@@ -10,8 +10,18 @@ def import_raw_data(path):
     point_cloud = o3.geometry.PointCloud()
     point_cloud.points = o3.utility.Vector3dVector(points_data)
     return point_cloud
-def pcd_init(path,min_points):
-    '''Initialize the pointcloud from given path and hyperparameter'''
+def pcd_init(path, min_points):
+    '''Initialize the pointcloud from given path and hyperparameter
+    ------
+    param:
+    path: Path of point cloud .txt file
+    min_points: Min number of points demand to be recognized as a cell
+    -----
+    Return:
+    pcd: o3.geometry.PointCloud class
+    labels: np.array
+    ------
+    '''
     pcd = o3.geometry.PointCloud()
     pcd.points = o3.utility.Vector3dVector(np.round(np.loadtxt(path)))
     labels = np.array(pcd.cluster_dbscan(eps=2.5, min_points=min_points))
@@ -44,6 +54,7 @@ def stat(path):
         cell['center'] = np.mean(loc,axis=0)
         cells.append(cell)
     return np.asarray(cells)
+
 if __name__ == '__main__':
     path1 = "/Users/apple/YiLab/Resoursces/3D Align/sample/MASK_DG green 1st recall_A01_G001_0001.oir - C=0.txt"
     path2 = "/Users/apple/YiLab/Resoursces/3D Align/sample/MASK_DG green 2nd recall_A01_G001_0001.oir - C=0.txt"
