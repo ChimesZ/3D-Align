@@ -4,13 +4,15 @@ import open3d as o3
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 
-def import_raw_data(path):
+def import_raw_data(path,Vis=False):
     '''Import raw point cloud data from .txt, returun point_cloud class'''
     points_data = np.loadtxt(path)
     point_cloud = o3.geometry.PointCloud()
     point_cloud.points = o3.utility.Vector3dVector(points_data)
+    if Vis:
+        o3.visualization.draw_geometries([point_cloud])
     return point_cloud
-def pcd_init(path, min_points):
+def pcd_init(path, min_points, Vis=False):
     '''Initialize the pointcloud from given path and hyperparameter
     ------
     param:
@@ -26,11 +28,11 @@ def pcd_init(path, min_points):
     pcd.points = o3.utility.Vector3dVector(np.round(np.loadtxt(path)))
     labels = np.array(pcd.cluster_dbscan(eps=2.5, min_points=min_points))
     max_label = labels.max()
-    colors = plt.get_cmap("tab20")(labels / (max_label 
-    if max_label > 0 else 1))
+    colors = plt.get_cmap("tab20")(labels / (max_label if max_label > 0 else 1))
     colors[labels < 0] = 0
     pcd.colors = o3.utility.Vector3dVector(colors[:, :3])
-    # o3.visualization.draw_geometries([pcd])
+    if Vis:
+        o3.visualization.draw_geometries([pcd])
     return pcd,labels
 def parameter_choice(path):
     numbers = []
@@ -40,7 +42,18 @@ def parameter_choice(path):
     plt.scatter(range(0,100),numbers)
     plt.show()
 def stat(path):
-    data, labels = pcd_init(path,25)
+    """
+    ---
+    ---
+    Return:
+    cells -> numpy.array([cell...])
+    cell -> {
+    'locs':
+    'label':
+    'center':
+    }
+    """
+    data, labels = pcd_init(path,20,Vis=True)
     points = pd.DataFrame(data.points)
     points.columns = ['x','y','z']
     points['labels'] = labels
@@ -56,8 +69,7 @@ def stat(path):
     return np.asarray(cells)
 
 if __name__ == '__main__':
-    path1 = "/Users/apple/YiLab/Resoursces/3D Align/sample/MASK_DG green 1st recall_A01_G001_0001.oir - C=0.txt"
-    path2 = "/Users/apple/YiLab/Resoursces/3D Align/sample/MASK_DG green 2nd recall_A01_G001_0001.oir - C=0.txt"
-    data = stat(path2)
-    np.save('/Users/apple/YiLab/Resoursces/3D Align/Data/2nd recall.npy',data)
+    path = '/Users/apple/YiLab/Resoursces/3D Align/Bad data test/68 2nd TR 0004 green registered.txt'
+    data = stat(path)
+    np.save('/Users/apple/YiLab/Resoursces/3D Align/Bad data test/68 2nd TR 0004 green registered.npy',data)
     
