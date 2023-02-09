@@ -4,14 +4,6 @@ import open3d as o3
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 
-def import_raw_data(path,Vis=False):
-    '''Import raw point cloud data from .txt, returun point_cloud class'''
-    points_data = np.loadtxt(path)
-    point_cloud = o3.geometry.PointCloud()
-    point_cloud.points = o3.utility.Vector3dVector(points_data)
-    if Vis:
-        o3.visualization.draw_geometries([point_cloud])
-    return point_cloud
 def pcd_init(path, min_points, Vis=False):
     '''Initialize the pointcloud from given path and hyperparameter
     ------
@@ -35,6 +27,15 @@ def pcd_init(path, min_points, Vis=False):
         o3.visualization.draw_geometries([pcd])
     return pcd,labels
 def parameter_choice(path):
+    """Choice proper parameter for `pcd_init`
+    ---
+    param: 
+    path -> path to `.txt` point cloud file
+    ---
+    Show:
+    pyplot figure between min_point and the number of detected cell
+    }
+    """   
     numbers = []
     for i in tqdm(range(0,100)):
         _, label = pcd_init(path, i)
@@ -44,14 +45,12 @@ def parameter_choice(path):
 def stat(path):
     """
     ---
+    param: 
+    path -> path to `.txt` point cloud file
     ---
     Return:
     cells -> numpy.array([cell...])
-    cell -> {
-    'locs':
-    'label':
-    'center':
-    }
+    cell -> {'locs':'label':'center':}
     """
     data, labels = pcd_init(path,20,Vis=True)
     points = pd.DataFrame(data.points)
