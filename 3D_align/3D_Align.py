@@ -22,7 +22,7 @@ def red_channel_align_mat(source_path_red, target_path_red):
         target_path_red(str): ref red channel `.txt` point cloud file
     -----
     Returns:
-        tf_param
+        tf_param: parameters for affine transformation
     ------
     '''
     source, target = utils.prepare_source_and_target_nonrigid_3d(source_path_red, target_path_red,voxel_size=1)
