@@ -3,6 +3,7 @@ import pandas as pd
 import open3d as o3
 import matplotlib.pyplot as plt
 from tqdm import tqdm
+import os
 
 def pcd_init(path, min_points, Vis=False):
     '''Initialize the pointcloud from given path and hyperparameter
@@ -17,7 +18,8 @@ def pcd_init(path, min_points, Vis=False):
     ------
     '''
     pcd = o3.geometry.PointCloud()
-    pcd.points = o3.utility.Vector3dVector(np.round(np.loadtxt(path)))
+    raw_data = np.loadtxt(path)
+    pcd.points = o3.utility.Vector3dVector(raw_data)
     labels = np.array(pcd.cluster_dbscan(eps=2.5, min_points=min_points))
     max_label = labels.max()
     colors = plt.get_cmap("tab20")(labels / (max_label if max_label > 0 else 1))
@@ -42,7 +44,7 @@ def parameter_choice(path):
         numbers.append(label.max())
     plt.scatter(range(0,100),numbers)
     plt.show()
-def stat(path):
+def stat(path,Vis=True):
     """
     ---
     param: 
@@ -52,7 +54,7 @@ def stat(path):
     cells -> numpy.array([cell...])
     cell -> {'locs':'label':'center':}
     """
-    data, labels = pcd_init(path,20,Vis=True)
+    data, labels = pcd_init(path,20,Vis=Vis)
     points = pd.DataFrame(data.points)
     points.columns = ['x','y','z']
     points['labels'] = labels
@@ -68,7 +70,14 @@ def stat(path):
     return np.asarray(cells)
 
 if __name__ == '__main__':
-    path = '/Users/apple/YiLab/Resoursces/3D Align/Bad data test/68 2nd TR 0004 green registered.txt'
-    data = stat(path)
-    np.save('/Users/apple/YiLab/Resoursces/3D Align/Bad data test/68 2nd TR 0004 green registered.npy',data)
+    path = '/Users/apple/YiLab/Raw_Data/System Reconsolidation/Point Cloud/After_Align_R/green/'
+    path = path + 'N01 1st recall 02 green aligned.txt'
+    np.save(path + '.npy',stat(path))
+    # names = os.listdir(path)
+    # for name in tqdm(names):
+    #     np.save(path + name + '.npy',stat(path + name))
+    
+
+
+
     
