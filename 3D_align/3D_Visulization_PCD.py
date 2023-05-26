@@ -16,7 +16,7 @@ def pcd_3d_loader(path, color = [1, 0, 0],round=False):
     pcd.source.paint_uniform_color(color)
     return pcd
 
-def pcd_3d_plt(pcds,colors,size=1,alpha=0.5):
+def pcd_3d_plt(pcds,colors,size=2,alpha=0.5):
     '''Plot `pcd` with pyplot
     ---
     param:
@@ -28,6 +28,7 @@ def pcd_3d_plt(pcds,colors,size=1,alpha=0.5):
     Returen:
         ax: 
     '''
+    assert len(pcds) == len(colors)
     ax = plt.axes(projection='3d')
     for pcd,color in zip(pcds,colors): 
         ax.scatter(pcd[:,0],pcd[:,1],-pcd[:,2], 
@@ -44,17 +45,15 @@ def pcd_3d_plt(pcds,colors,size=1,alpha=0.5):
     return ax
 
 if __name__ == '__main__':
-    path1 = '/Users/apple/YiLab/Raw_Data/System Reconsolidation/Point Cloud/After_Align_R/N01 1st recall 02 red aligned.txt'
-    path2 = '/Users/apple/YiLab/Raw_Data/System Reconsolidation/Point Cloud/After_Align_R/N01 2nd recall 02 red aligned.txt'
-    path3 = '/Users/apple/YiLab/Raw_Data/System Reconsolidation/Point Cloud/N01 1st recall 02 red.txt'
-    path4 = '/Users/apple/YiLab/Raw_Data/System Reconsolidation/Point Cloud/N01 2nd recall 02 red.txt'
+    path1 = '/Users/apple/YiLab/Resoursces/3D Align/Bad data test/68 1st TR 0004 red.txt'
+    path2 = '/Users/apple/YiLab/Resoursces/3D Align/Bad data test/68 2nd TR 0004 red registered.txt'
+    path3 = '/Users/apple/YiLab/Resoursces/3D Align/Bad data test/68 2nd TR 0004 red.txt'
+    # path3 = '/Users/apple/YiLab/Raw_Data/System Reconsolidation/Point Cloud/N01 1st recall 02 red.txt'
+    # path4 = '/Users/apple/YiLab/Raw_Data/System Reconsolidation/Point Cloud/N01 2nd recall 02 red.txt'
     pcd1 = np.loadtxt(path1)
     pcd2 = np.loadtxt(path2)
     pcd3 = np.loadtxt(path3)
-    pcd4 = np.loadtxt(path4)
-    fig = plt.figure(figsize=(20,10))
-    fig.subplots(121)
-    ax1 = pcd_3d_plt([pcd1,pcd2],colors=['red','blue'])
-    fig.subplots(122)
-    ax2 = pcd_3d_plt([pcd3,pcd4],colors=['red','blue'])
+    # pcd4 = np.loadtxt(path4)
+    fig = plt.figure(figsize=(5,5))
+    ax1 = pcd_3d_plt([pcd1,pcd2,pcd3],colors=['red','blue','gray'])
     plt.show()

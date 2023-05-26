@@ -1,6 +1,5 @@
 import numpy as np
 import pandas as pd
-# import open3d as o3
 import tqdm
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
@@ -8,7 +7,7 @@ import math
 import matplotlib as mpl
 import time
 
-orgnizer = pd.read_csv('/Users/apple/YiLab/Raw_Data/System Reconsolidation/Point Cloud/After_Align_R/green/data_organize.csv')
+orgnizer = pd.read_csv('/Users/apple/YiLab/Raw_Data/System Reconsolidation/plot/sys_r_2.csv')
 
 size = 200
 fig = plt.figure(figsize=(8,8))
@@ -16,7 +15,7 @@ ax3 = plt.axes(projection='3d')
 #Type C
 ax3.scatter(orgnizer[(orgnizer['1st recall']==0)&(orgnizer['1st TR']==1)&(orgnizer['2nd recall']==1)]['x'],
         orgnizer[(orgnizer['1st recall']==0)&(orgnizer['1st TR']==1)&(orgnizer['2nd recall']==1)]['y'],
-        -3*orgnizer[(orgnizer['1st recall']==0)&(orgnizer['1st TR']==1)&(orgnizer['2nd recall']==1)]['z'],
+        -orgnizer[(orgnizer['1st recall']==0)&(orgnizer['1st TR']==1)&(orgnizer['2nd recall']==1)]['z'],
         c='seagreen',
         s=size,
         edgecolors='black'
@@ -24,7 +23,7 @@ ax3.scatter(orgnizer[(orgnizer['1st recall']==0)&(orgnizer['1st TR']==1)&(orgniz
 # Type D
 ax3.scatter(orgnizer[(orgnizer['1st recall']==1)&(orgnizer['1st TR']==0)&(orgnizer['2nd recall']==1)]['x'],
         orgnizer[(orgnizer['1st recall']==1)&(orgnizer['1st TR']==0)&(orgnizer['2nd recall']==1)]['y'],
-        -3*orgnizer[(orgnizer['1st recall']==1)&(orgnizer['1st TR']==0)&(orgnizer['2nd recall']==1)]['z'],
+        -orgnizer[(orgnizer['1st recall']==1)&(orgnizer['1st TR']==0)&(orgnizer['2nd recall']==1)]['z'],
         c='indianred',
         s=size,
         edgecolors='black',
@@ -33,7 +32,7 @@ ax3.scatter(orgnizer[(orgnizer['1st recall']==1)&(orgnizer['1st TR']==0)&(orgniz
 #type A 
 ax3.scatter(orgnizer[(orgnizer['1st recall']==1)&(orgnizer['1st TR']==1)&(orgnizer['2nd recall']==1)]['x'],
         orgnizer[(orgnizer['1st recall']==1)&(orgnizer['1st TR']==1)&(orgnizer['2nd recall']==1)]['y'],
-        -3*orgnizer[(orgnizer['1st recall']==1)&(orgnizer['1st TR']==1)&(orgnizer['2nd recall']==1)]['z'],
+        -orgnizer[(orgnizer['1st recall']==1)&(orgnizer['1st TR']==1)&(orgnizer['2nd recall']==1)]['z'],
         c='steelblue',
         s=size,
         edgecolors='black'
@@ -41,14 +40,14 @@ ax3.scatter(orgnizer[(orgnizer['1st recall']==1)&(orgnizer['1st TR']==1)&(orgniz
 #Type B
 ax3.scatter(orgnizer[(orgnizer['1st recall']==1)&(orgnizer['1st TR']==1)&(orgnizer['2nd recall']==0)]['x'],
         orgnizer[(orgnizer['1st recall']==1)&(orgnizer['1st TR']==1)&(orgnizer['2nd recall']==0)]['y'],
-        -3*orgnizer[(orgnizer['1st recall']==1)&(orgnizer['1st TR']==1)&(orgnizer['2nd recall']==0)]['z'],
+        -orgnizer[(orgnizer['1st recall']==1)&(orgnizer['1st TR']==1)&(orgnizer['2nd recall']==0)]['z'],
         c='mediumpurple',
         s=size,
         edgecolors='black'
         ) # source
 ax3.scatter(orgnizer[(orgnizer['1st recall']==1)&(orgnizer['1st TR']==0)&(orgnizer['2nd recall']==0)]['x'],
         orgnizer[(orgnizer['1st recall']==1)&(orgnizer['1st TR']==0)&(orgnizer['2nd recall']==0)]['y'],
-        -3*orgnizer[(orgnizer['1st recall']==1)&(orgnizer['1st TR']==0)&(orgnizer['2nd recall']==0)]['z'],
+        -orgnizer[(orgnizer['1st recall']==1)&(orgnizer['1st TR']==0)&(orgnizer['2nd recall']==0)]['z'],
         c='gray',
         s=size,
         edgecolors='black',
@@ -56,7 +55,7 @@ ax3.scatter(orgnizer[(orgnizer['1st recall']==1)&(orgnizer['1st TR']==0)&(orgniz
         ) # source
 ax3.scatter(orgnizer[(orgnizer['1st recall']==0)&(orgnizer['1st TR']==1)&(orgnizer['2nd recall']==0)]['x'],
         orgnizer[(orgnizer['1st recall']==0)&(orgnizer['1st TR']==1)&(orgnizer['2nd recall']==0)]['y'],
-        -3*orgnizer[(orgnizer['1st recall']==0)&(orgnizer['1st TR']==1)&(orgnizer['2nd recall']==0)]['z'],
+        -orgnizer[(orgnizer['1st recall']==0)&(orgnizer['1st TR']==1)&(orgnizer['2nd recall']==0)]['z'],
         c='gray',
         s=size,
         edgecolors='black',
@@ -64,7 +63,7 @@ ax3.scatter(orgnizer[(orgnizer['1st recall']==0)&(orgnizer['1st TR']==1)&(orgniz
         )
 ax3.scatter(orgnizer[(orgnizer['1st recall']==0)&(orgnizer['1st TR']==0)&(orgnizer['2nd recall']==1)]['x'],
         orgnizer[(orgnizer['1st recall']==0)&(orgnizer['1st TR']==0)&(orgnizer['2nd recall']==1)]['y'],
-        -3*orgnizer[(orgnizer['1st recall']==0)&(orgnizer['1st TR']==0)&(orgnizer['2nd recall']==1)]['z'],
+        -orgnizer[(orgnizer['1st recall']==0)&(orgnizer['1st TR']==0)&(orgnizer['2nd recall']==1)]['z'],
         c='gray',
         s=size,
         edgecolors='black',
@@ -84,5 +83,5 @@ ax3.set_xlabel('X(µm)')
 ax3.set_ylabel('Y(µm)')
 ax3.set_zlabel('Z(µm)')
 plt.grid(True)
-fig.savefig('/Users/apple/YiLab/Raw_Data/System Reconsolidation/Figure/'+f'{time.time()}.svg',format='svg',dpi=150)
+fig.savefig('/Users/apple/YiLab/Raw_Data/System Reconsolidation/plot/figure/'+f'{time.time()}.svg',format='svg',dpi=150)
 plt.show()
