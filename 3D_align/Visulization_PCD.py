@@ -18,9 +18,10 @@ def pcd_3d_loader(path, color = [1, 0, 0],round=False):
 
 def downsample(pcd:np.array, rate = 0.7): 
     select = np.random.uniform(low=0,high=1,size=pcd.shape[0])
+    num = np.where(select>1-rate)
+    return pcd[num]
     
-
-def pcd_3d_plt(pcds,colors,size=2,alpha=0.5):
+def pcd_3d_plt(pcds,colors,size=2,alpha=0.5,marker='o'):
     '''Plot `pcd` with pyplot
     ---
     param:
@@ -37,7 +38,9 @@ def pcd_3d_plt(pcds,colors,size=2,alpha=0.5):
     for pcd,color in zip(pcds,colors): 
         ax.scatter(pcd[:,0],pcd[:,1],-pcd[:,2], 
                 s=size,
-                c = color)
+                c = color,
+                marker=marker,
+                alpha=alpha)
     ax.set_zlim3d(-150,50)
     ax.w_xaxis.set_pane_color((1.0, 1.0, 1.0, 0.0))
     ax.w_yaxis.set_pane_color((1.0, 1.0, 1.0, 0.0))
