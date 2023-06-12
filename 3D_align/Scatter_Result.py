@@ -23,7 +23,7 @@ def get_coordinate(path):
 
 if __name__ == '__main__':
     path_ref = '/Users/apple/YiLab/Resoursces/3D Align/Bad data test/68 1st TR 0004 green.npy'
-    path_1 = '/Users/apple/YiLab/Resoursces/3D Align/Bad data test/68 2nd TR 0004 green registered.npy'
+    path_1 = '/Users/apple/YiLab/Resoursces/3D Align/Bad data test/68 2nd TR 0004 green.npy'
     x,y,z = get_coordinate(path_ref)
     orgnizer = pd.DataFrame(zip(x,y,z))
     orgnizer.columns = list('xyz')
@@ -116,5 +116,5 @@ if __name__ == '__main__':
     ax3.set_ylabel('Y(µm)')
     ax3.set_zlabel('Z(µm)')
     plt.grid(True)
-    fig.savefig('/Users/apple/YiLab/Resoursces/3D Align/sample/'+'sample.svg',format='svg',dpi=150)
+#     fig.savefig('/Users/apple/YiLab/Resoursces/3D Align/sample/'+'sample.svg',format='svg',dpi=150)
     plt.show()
