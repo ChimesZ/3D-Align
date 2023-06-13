@@ -83,7 +83,7 @@ if __name__ == '__main__':
     ax3.scatter(orgnizer[(orgnizer['2nd TR']==0)&(orgnizer['1st TR']==1)]['x'],
             orgnizer[(orgnizer['2nd TR']==0)&(orgnizer['1st TR']==1)]['y'],
             -3*orgnizer[(orgnizer['2nd TR']==0)&(orgnizer['1st TR']==1)]['z'],
-            c='red',
+            c='magenta',
             s=size,
             edgecolors='black'
             )

@@ -52,7 +52,7 @@ def stat(path,Vis=True):
     ---
     Return:
     cells -> numpy.array([cell...])
-    cell -> {'locs':'label':'center':}
+    cell -> dict: {'locs':'label':'center':}
     """
     data, labels = pcd_init(path,20,Vis=Vis)
     points = pd.DataFrame(data.points)
@@ -70,9 +70,9 @@ def stat(path,Vis=True):
     return np.asarray(cells)
 
 if __name__ == '__main__':
-    path = '/Users/apple/YiLab/Raw_Data/System Reconsolidation/Point Cloud/After_Align_R/green/'
-    path = path + 'N01 1st recall 02 green aligned.txt'
-    np.save(path + '.npy',stat(path))
+    path = '/Users/apple/YiLab/Resoursces/3D Align/Bad data test/'
+    path = path + '68 NC 0004 green registered'
+    np.save(path + '.npy',stat(path + '.txt'))
     # names = os.listdir(path)
     # for name in tqdm(names):
     #     np.save(path + name + '.npy',stat(path + name))

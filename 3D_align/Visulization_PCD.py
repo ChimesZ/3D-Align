@@ -56,15 +56,20 @@ if __name__ == '__main__':
     path3 = '/Users/apple/YiLab/Resoursces/3D Align/Bad data test/68 2nd TR 0004 green.txt'
     # path3 = '/Users/apple/YiLab/Raw_Data/System Reconsolidation/Point Cloud/N01 1st recall 02 red.txt'
     # path4 = '/Users/apple/YiLab/Raw_Data/System Reconsolidation/Point Cloud/N01 2nd recall 02 red.txt'
-    pcd1 = np.loadtxt(path1)
-    pcd2 = np.loadtxt(path2)
-    pcd3 = np.loadtxt(path3)
+    pcd1 = downsample(np.loadtxt(path1),rate=0.5)
+    pcd2 = downsample(np.loadtxt(path2),rate=1) 
+    pcd3 = downsample(np.loadtxt(path3),rate=1)
     # pcd4 = np.loadtxt(path4)
-    fig = plt.figure(figsize=(20,20))
-    ax1 = pcd_3d_plt([pcd1,pcd3],colors=['red','blue'],size=10,alpha=0.1)
+    fig1 = plt.figure(figsize=(5,5))
+    ax1 = pcd_3d_plt([pcd1,pcd3],colors=['green','magenta'],size=5,alpha=0.02,marker='.')
+    fig2 = plt.figure(figsize=(5,5)) 
+    ax2 = pcd_3d_plt([pcd1,pcd2],colors=['green','magenta'],size=5,alpha=0.03,marker='.')
     # plt.savefig('/Users/apple/YiLab/Resoursces/3D Align/sample/'+'after align red.svg',format='svg')
     plt.grid(True)
     plt.show()
+    fig1.savefig('/Users/apple/YiLab/FosGFP/Figure 1/' + '3d_before_align_green.svg',format='svg')
+    fig2.savefig('/Users/apple/YiLab/FosGFP/Figure 1/' + '3d_after_align_green.svg',format='svg')
+
     # pcd1 = pcd_3d_loader(path1,color=[1,0,0])
     # pcd2 = pcd_3d_loader(path2,color=[0,1,0])
     # o3.visualization.draw_geometries([pcd1,pcd2])
