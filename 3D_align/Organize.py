@@ -1,5 +1,6 @@
 import math
 import pandas as pd
+import numpy as np
 
 def eucliDist(a,b):
     return math.sqrt(math.sqrt(sum([(a - b)**2 for (a,b) in zip(a,b)])))
